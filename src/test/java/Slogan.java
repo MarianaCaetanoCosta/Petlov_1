@@ -1,5 +1,10 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.Duration;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,15 +12,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 class Slogan {
 
 	@Test
 	@DisplayName("Deve exibir o slogan do site")
-	void addsTwoNumbers() {
+	void sloganTest() {
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
 

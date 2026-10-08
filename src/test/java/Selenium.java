@@ -1,7 +1,12 @@
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.Duration;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,71 +14,65 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 class Selenium {
 
-    WebDriver driver;
+	WebDriver driver;
 
-    @BeforeEach
-    void start() {
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-    }
+	@BeforeEach
+	void start() {
+		driver = new ChromeDriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+	}
 
-    @AfterEach
-    void finish() {
-        driver.quit();//driver.close();
-    }
+	@AfterEach
+	void finish() {
+		driver.close();
+	}
 
-    @Test
-    @DisplayName("Deve poder cadastrar um ponto de doação")
-    void createPoint() {
+	@Test
+	@DisplayName("Deve poder cadastrar um ponto de doação")
+	void createPoint() {
 
-        //Login
-        driver.get("https://petlov.vercel.app/signup");
 
-        //Chekpoint
-        WebElement title = driver.findElement(By.cssSelector("h1"));
+		driver.get("https://petlov.vercel.app/signup");
 
-        Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        wait.until(d -> title.isDisplayed());
+		WebElement title = driver.findElement(By.cssSelector("h1"));
 
-        assertEquals("Cadastro de ponto de doação", title.getText(), "Verificando o Slogan");
+		Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+		wait.until(d -> title.isDisplayed());
 
-        //Inspecionar Elementos
-        WebElement name = driver.findElement(By.cssSelector("input[placeholder='Nome do ponto de doação']"));
-        name.sendKeys("Mariana Point");
+		assertEquals("Cadastro de ponto de doação", title.getText(), "Verificando o título da página de cadastrado");
 
-        WebElement email = driver.findElement(By.cssSelector("input[name=email]"));
-        email.sendKeys("mariana@gmail.com");
+		WebElement name = driver.findElement(By.cssSelector("input[placeholder='Nome do ponto de doação']"));
+		name.sendKeys("Papito Point");
 
-        WebElement cep = driver.findElement(By.cssSelector("input[name=cep]"));
-        cep.sendKeys("31930250");
+		WebElement email = driver.findElement(By.cssSelector("input[name=email]"));
+		email.sendKeys("papito@point.net");
 
-        WebElement cepButton = driver.findElement(By.cssSelector("input[value='Buscar CEP']"));
-        cepButton.click();
+		WebElement cep = driver.findElement(By.cssSelector("input[name=cep]"));
+		cep.sendKeys("04534011");
 
-        WebElement nameAddress = driver.findElement(By.cssSelector("input[name='addressNumber']"));
-        nameAddress.sendKeys("1000");
+		WebElement cepButton = driver.findElement(By.cssSelector("input[value='Buscar CEP']"));
+		cepButton.click();
 
-        WebElement details = driver.findElement(By.cssSelector("input[name='addressDetails']"));
-        details.sendKeys("Ao lado da padaria");
+		WebElement number = driver.findElement(By.cssSelector("input[name=addressNumber]"));
+		number.sendKeys("1000");
 
-        //Pets para adoção
-        driver.findElement(By.xpath("//span[text()=\"Cachorros\"]/..")).click();
+		WebElement details = driver.findElement(By.cssSelector("input[name=addressDetails]"));
+		details.sendKeys("Ao lado da padaria");
 
-        //Cadastrar
-        driver.findElement(By.className("button-register")).click();
+		driver.findElement(By.xpath("//span[text()=\"Cachorros\"]/..")).click();
 
-        //Cadastro realizado com sucesso
-        WebElement result = driver.findElement(By.cssSelector("success-page p"));
-        Wait<WebDriver> waitResult = new WebDriverWait(driver, Duration.ofSeconds(10));
-        waitResult.until(d -> result.isDisplayed());
+		driver.findElement(By.className("button-register")).click();
 
-        String target = "Seu ponto de doação foi adicionado com sucesso. Juntos, podemos criar um mundo onde todos os animais recebam o amor e cuidado que merecem.";
-        assertEquals(target.trim(), result.getText().trim(), "Verificar a mensagem de sucesso.");
-    }
+		WebElement result = driver.findElement(By.cssSelector("#success-page p"));
+
+		Wait<WebDriver> waitResult = new WebDriverWait(driver, Duration.ofSeconds(2));
+		waitResult.until(d -> result.isDisplayed());
+
+		String target = "Seu ponto de doacão foi adicionado com sucesso. Juntos, podemos criar um mundo onde todos os animais recebam o amor e cuidado que merecem.";
+
+		assertEquals(target, result.getText(), "Verificando a mensagem de sucesso.");
+
+	}
 }
