@@ -26,7 +26,7 @@ Praticar e demonstrar automação de testes de interface (UI), verificando compo
 ## Estrutura do projeto
 
 ```text
-Petlov_1/
+Petlov-Automacao-de-Testes/
 ├── pom.xml
 └── src/
     └── test/
