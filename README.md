@@ -1,4 +1,4 @@
-# Petlov — Automação de Testes Web
+# QA e Automação de Testes | Petlove
 
 Projeto de automação de testes web da aplicação [Petlov](https://petlov.vercel.app), desenvolvido com Java para validar fluxos importantes da interface de cadastro de pontos de doação e a apresentação do slogan do site.
 
@@ -26,7 +26,7 @@ Praticar e demonstrar automação de testes de interface (UI), verificando compo
 ## Estrutura do projeto
 
 ```text
-Petlov-Automacao-de-Testes/
+QA-Automacao-de-Testes-E-Petlov/
 ├── pom.xml
 └── src/
     └── test/
