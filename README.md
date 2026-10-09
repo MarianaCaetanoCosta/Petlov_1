@@ -55,6 +55,45 @@ O Selenium Manager pode auxiliar na resolução do driver do navegador. Caso oco
 
 Também é possível executar uma classe de teste individual pelo IntelliJ.
 
+## Como executar pelo Visual Studio Code
+
+### Pré-requisitos
+
+- **JDK 26**, conforme configurado em `pom.xml`, ou uma versão compatível após ajuste consciente da configuração do projeto
+- **Visual Studio Code**
+- **Apache Maven** instalado e disponível no `PATH` do terminal (comando `mvn -v`)
+- **Google Chrome** instalado
+- Extensões do VS Code:
+  - **Extension Pack for Java** (inclui suporte Java, testes e depuração)
+  - **Maven for Java**
+
+### Abrir e executar
+
+1. Abra o Visual Studio Code.
+2. Selecione **File > Open Folder...** e escolha a pasta raiz do projeto, aquela que contém o arquivo `pom.xml`.
+3. Se solicitado, permita que as extensões Java importem o projeto Maven e aguarde a resolução das dependências.
+4. Abra **Terminal > New Terminal** e confira a configuração:
+   ```bash
+   java -version
+   mvn -v
+   ```
+   Verifique se o Java ativo é compatível com a versão definida no `pom.xml` e se o Maven reconhece esse JDK.
+5. Para executar todos os testes configurados no projeto, rode no terminal integrado:
+   ```bash
+   mvn test
+   ```
+6. Consulte o resultado no terminal e os arquivos gerados em `target/surefire-reports`. Também é possível abrir o painel **Testing** do VS Code para executar testes descobertos pelas extensões Java; a execução pelo comando Maven segue os includes definidos no `pom.xml`.
+
+Para gerar o relatório HTML consolidado pelo terminal integrado, execute depois da execução dos testes:
+
+```bash
+mvn org.apache.maven.plugins:maven-surefire-report-plugin:3.2.5:report-only
+```
+
+O relatório costuma ficar em `target/site/relatorio-testes.html`, conforme a configuração do projeto. Abra esse arquivo no navegador para consultar o resultado consolidado.
+
+> Se o comando `mvn` não for reconhecido, instale o Apache Maven e configure sua pasta `bin` no `PATH`. Se houver erro de compilação relacionado à versão do Java, confira o JDK ativo com `java -version`, `mvn -v` e a configuração do `pom.xml` antes de alterar qualquer versão.
+
 ## Relatórios de teste
 
 O projeto utiliza o Maven Surefire para gerar resultados individuais em `target/surefire-reports`, incluindo arquivos de texto e XML por classe.
